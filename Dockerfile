@@ -31,27 +31,6 @@ RUN apt-get install -y tzdata && \
    fuse \
     && rm -rf /var/lib/apt/lists/*
 
-# install chrome
-RUN mkdir -p /tmp/ && \
-    cd /tmp/ && \
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    # -f ==> is required to --fix-missing-dependancies
-    dpkg -i ./google-chrome-stable_current_amd64.deb; apt -fqqy install && \
-    # clean up the container "layer", after we are done
-    rm ./google-chrome-stable_current_amd64.deb
-
-# install chromedriver
-RUN mkdir -p /tmp/ && \
-    cd /tmp/ && \
-    wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip  && \
-    unzip /tmp/chromedriver.zip chromedriver -d /usr/bin/ && \
-    # clean up the container "layer", after we are done
-    rm /tmp/chromedriver.zip
-
-ENV GOOGLE_CHROME_DRIVER /usr/bin/chromedriver
-ENV GOOGLE_CHROME_BIN /usr/bin/google-chrome-stable
-
-
   RUN sed -i "s/# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen \
   && locale-gen
 ENV LANG=en_US.UTF-8
@@ -93,7 +72,8 @@ WORKDIR /home/coder
 COPY run.sh /home/coder
 RUN code-server --install-extension liximomo.sftp --force
 RUN code-server --install-extension ms-python.python --force
-RUN code-server --install-extension ms-vscode.cpptools --force
+RUN code-server --install-extension mblode.pretty-formatter --force
+
 
 RUN mkdir -p /home/coder/.vscode
 COPY sftp.json /home/coder/.vscode
