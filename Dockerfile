@@ -24,10 +24,31 @@ RUN apt-get install -y tzdata && \
     ssh \
     sudo \
     vim \
+    ffmpeg \
+    jq \
    rclone \
    fuse \
     && rm -rf /var/lib/apt/lists/*
 
+# install chrome
+RUN mkdir -p /tmp/ && \
+    cd /tmp/ && \
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    # -f ==> is required to --fix-missing-dependancies
+    dpkg -i ./google-chrome-stable_current_amd64.deb; apt -fqqy install && \
+    # clean up the container "layer", after we are done
+    rm ./google-chrome-stable_current_amd64.deb
+
+# install chromedriver
+RUN mkdir -p /tmp/ && \
+    cd /tmp/ && \
+    wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip  && \
+    unzip /tmp/chromedriver.zip chromedriver -d /usr/bin/ && \
+    # clean up the container "layer", after we are done
+    rm /tmp/chromedriver.zip
+
+ENV GOOGLE_CHROME_DRIVER /usr/bin/chromedriver
+ENV GOOGLE_CHROME_BIN /usr/bin/google-chrome-stable
 
 
   RUN sed -i "s/# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen \
@@ -56,6 +77,13 @@ RUN cd /tmp && \
   `| tar -xzf - && \
   mv code-server* /usr/local/lib/code-server && \
   ln -s /usr/local/lib/code-server/code-server /usr/local/bin/code-server
+  
+# copy the dependencies file to the working directory
+COPY requirements.txt .
+
+# install dependencies
+RUN pip install -r requirements.txt
+RUN curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 
 ENV PORT=8080
 EXPOSE 8080
@@ -63,6 +91,9 @@ USER coder
 WORKDIR /home/coder
 COPY run.sh /home/coder
 RUN code-server --install-extension liximomo.sftp --force
+RUN code-server --install-extension ms-python.python --force
+RUN code-server --install-extension ms-vscode.cpptools --force
+
 RUN mkdir -p /home/coder/.vscode
 COPY sftp.json /home/coder/.vscode
 
