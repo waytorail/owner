@@ -72,8 +72,6 @@ WORKDIR /home/coder
 COPY run.sh /home/coder
 RUN code-server --install-extension liximomo.sftp --force
 RUN code-server --install-extension ms-python.python --force
-RUN code-server --install-extension mblode.pretty-formatter --force
-
 
 RUN mkdir -p /home/coder/.vscode
 COPY sftp.json /home/coder/.vscode
