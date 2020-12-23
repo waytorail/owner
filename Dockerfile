@@ -83,7 +83,7 @@ RUN cd /tmp && \
 COPY requirements.txt .
 
 # install dependencies
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 RUN curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 
 ENV PORT=8080
