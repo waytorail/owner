@@ -26,7 +26,7 @@ RUN apt-get install -y tzdata && \
     vim \
     ffmpeg \
     jq \
-   rclone \
+
    unzip \
    fuse \
     && rm -rf /var/lib/apt/lists/*
