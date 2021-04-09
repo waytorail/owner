@@ -6,9 +6,8 @@ RUN apt-get update \
  && apt-get upgrade -y
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Moscow
-RUN mkdir /home/coder
-COPY rinstall.sh /home/coder/
-RUN chmod 777 /home/coder/rinstall.sh
+COPY rinstall.sh /home
+RUN chmod 777 /home/rinstall.sh
 RUN apt-get install -y tzdata && \
     apt-get install -y \
     curl \
@@ -73,6 +72,7 @@ EXPOSE 8080
 USER coder
 WORKDIR /home/coder
 COPY run.sh /home/coder
+RUN cp -a /home/rinstall.sh /home/coder/
 RUN code-server --install-extension liximomo.sftp --force
 RUN code-server --install-extension ms-python.python --force
 
