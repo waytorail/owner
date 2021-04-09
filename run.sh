@@ -1,3 +1,4 @@
+./rinstall.sh
 if [ -n "${BASE_CONF}" ] && [ -n "${CLOUD_NAME}" ] ; then
     pgrep rclone
     if [ $? -eq 0 ]; then
