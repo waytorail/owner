@@ -70,6 +70,8 @@ EXPOSE 8080
 USER coder
 WORKDIR /home/coder
 COPY run.sh /home/coder
+COPY rinstall.sh /home/coder
+RUN chmod 777 rinstall.sh
 RUN code-server --install-extension liximomo.sftp --force
 RUN code-server --install-extension ms-python.python --force
 
