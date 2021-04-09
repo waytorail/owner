@@ -36,9 +36,6 @@ This is heroku app that allow you to run vscode web version "code-server" also i
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
-[![deployment](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-<br/>
-[](#deployment)
 
 ### Prerequisites
 
