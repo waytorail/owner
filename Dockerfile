@@ -36,7 +36,8 @@ RUN apt-get install -y tzdata && \
   RUN sed -i "s/# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen \
   && locale-gen
 ENV LANG=en_US.UTF-8
-
+RUN ln -s /usr/bin/python3 /usr/bin/python & \
+    ln -s /usr/bin/pip3 /usr/bin/pip
 RUN chsh -s /bin/bash
 ENV SHELL=/bin/bash
 
