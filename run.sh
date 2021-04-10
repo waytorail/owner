@@ -1,4 +1,6 @@
 ./rinstall.sh
+json='{"workbench.colorTheme": "Visual Studio Dark", "code-runner.runInTerminal": true, "code-runner.saveFileBeforeRun": true}'
+echo $json > /home/coder/.local/share/code-server/User/settings.json
 if [ -n "${BASE_CONF}" ] && [ -n "${CLOUD_NAME}" ] ; then
     pgrep rclone
     if [ $? -eq 0 ]; then
