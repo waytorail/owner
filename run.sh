@@ -13,4 +13,4 @@ if [ -n "${BASE_CONF}" ] && [ -n "${CLOUD_NAME}" ] ; then
 else 
     echo "CLOUD NOT MOUNTED" > /home/coder/CLOUD_NOT_MOUNTED
 fi
-
+rm *
