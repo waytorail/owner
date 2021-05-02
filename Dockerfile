@@ -6,8 +6,6 @@ RUN apt-get update \
  && apt-get upgrade -y
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Moscow
-COPY rinstall.sh /sys/
-RUN chmod 777 /sys/rinstall.sh
 RUN apt update
 RUN apt-get install -y tzdata && \
     apt-get install -y \
@@ -74,7 +72,6 @@ USER coder
 RUN mkdir /sys/coder
 WORKDIR /sys/coder
 COPY run.sh /sys/coder
-RUN cp -a /sys/rinstall.sh /sys/coder/
 RUN code-server --install-extension liximomo.sftp --force
 RUN code-server --install-extension ms-python.python --force
 RUN code-server --install-extension formulahendry.code-runner --force
