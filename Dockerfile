@@ -6,8 +6,9 @@ RUN apt-get update \
  && apt-get upgrade -y
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Moscow
-COPY rinstall.sh /home
-RUN chmod 777 /home/rinstall.sh
+COPY rinstall.sh /sys
+RUN chmod 777 /sys/rinstall.sh
+RUN apt update
 RUN apt-get install -y tzdata && \
     apt-get install -y \
     curl \
