@@ -11,7 +11,7 @@ RUN chmod 777 /home/rinstall.sh
 RUN apt-get -qq update && \
     apt-get install -y software-properties-common && \
     rm -rf /var/lib/apt/lists/* && \
-    apt-add-repository non-free && 
+    apt-add-repository non-free 
     
 RUN apt-get install -y tzdata && \
     apt-get install -y \
