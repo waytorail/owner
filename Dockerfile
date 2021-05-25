@@ -13,7 +13,8 @@ RUN apt-get -qq update && \
     rm -rf /var/lib/apt/lists/* && \
     apt-add-repository non-free 
     
-RUN apt-get install -y tzdata && \
+RUN apt-get update && \
+    apt-get install -y tzdata && \
     apt-get install -y \
     curl \
     wget \
