@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM lzzy12/mega-sdk-python:latest
 
 #use help to debug and finding whats wrong with my Dockerfile not working properly on heroku
 # https://github.com/ivang7/heroku-vscode
@@ -8,13 +8,16 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Moscow
 COPY rinstall.sh /home
 RUN chmod 777 /home/rinstall.sh
+RUN apt-get -qq update && \
+    apt-get install -y software-properties-common && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-add-repository non-free && 
+    
 RUN apt-get install -y tzdata && \
     apt-get install -y \
     curl \
     wget \
-    python3 \
     gcc \ 
-    python3-pip \
     gnupg \
     dumb-init \
     htop \
