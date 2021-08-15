@@ -2,8 +2,8 @@ FROM lzzy12/mega-sdk-python:latest
 
 #use help to debug and finding whats wrong with my Dockerfile not working properly on heroku
 # https://github.com/ivang7/heroku-vscode
-RUN apt-get update \
- && apt-get upgrade -y
+#UN apt-get update \
+ #&& apt-get upgrade -y
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Moscow
 COPY rinstall.sh /home
